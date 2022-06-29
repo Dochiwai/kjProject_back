@@ -18,7 +18,9 @@ public class UserRepository {
     }
 
     public User findOne(Long uid){
-        User user = em.find(User.class, uid);
+        User user = em.createQuery(
+                "select u from User u join fetch Attach a on u.uid = a.attachUuid",User.class)
+                .getSingleResult();
         return user;
     }
 

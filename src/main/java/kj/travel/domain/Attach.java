@@ -12,7 +12,7 @@ public class Attach {
 
     @Column(name="ATTACH_UUID")
     private Long attachUuid;
-    private String uri;
+    private String url;
     private String realname;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

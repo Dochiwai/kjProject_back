@@ -30,9 +30,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = false)
-    public void update(Long uid, String name) {
-        User user = userRepository.findOne(uid);
-        user.setName(name);
+    public void update(User user) {
+        User findUser = userRepository.findOne(user.getUid());
     }
 
     public String findByNickname(String nickname){
