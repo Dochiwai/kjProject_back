@@ -18,6 +18,8 @@ public class Board {
     @JoinColumn(name="user_id")
     private User createdUser;
 
+    @Enumerated(EnumType.STRING)
+    private BoardType type;
     private String title;
     private String content;
 
