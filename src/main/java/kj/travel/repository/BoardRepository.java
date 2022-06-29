@@ -18,7 +18,7 @@ public class BoardRepository {
     }
 
     public Board findOne(Long id){
-        Board board = em.createQuery("select b from Board b join fetch Attach a on b.id = a.attachUuid",Board.class)
+        Board board = em.createQuery("select b from Board b left outer join fetch b.attach",Board.class)
                 .getSingleResult();
         return board;
     }

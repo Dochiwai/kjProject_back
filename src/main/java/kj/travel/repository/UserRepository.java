@@ -13,13 +13,15 @@ public class UserRepository {
 
     private final EntityManager em;
 
-    public void save(User user){
+    public Long save(User user){
         em.persist(user);
+        return user.getUid();
     }
 
     public User findOne(Long uid){
         User user = em.createQuery(
-                "select u from User u join fetch Attach a on u.uid = a.attachUuid",User.class)
+                "select u from User u left outer join fetch u.attach where u.uid =:uid",User.class)
+                .setParameter("uid",uid)
                 .getSingleResult();
         return user;
     }
