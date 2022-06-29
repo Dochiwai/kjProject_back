@@ -12,8 +12,9 @@ import java.util.List;
 public class User {
 
     @Id @GeneratedValue
-    @Column(name = "USER_ID")
-    private Long id;
+    @Column(name = "USER_UID")
+    private Long uid;
+    private String id;
     private String pw;
     private String nickname;
     private String name;
@@ -22,7 +23,7 @@ public class User {
     private String nation;
     @OneToOne
     @JoinTable(name = "Attach", //조인테이블명
-            joinColumns = @JoinColumn(name="USER_ID"),  //외래키
+            joinColumns = @JoinColumn(name="USER_UID"),  //외래키
             inverseJoinColumns = @JoinColumn(name="ATTACH_UUID") //반대 엔티티의 외래키
     )
     private Attach fileImg;
