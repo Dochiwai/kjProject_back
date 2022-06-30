@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -26,8 +27,7 @@ public class S3Service {
     public String bucket;
 
     public String upload(MultipartFile multipartFile, String dirName) throws IOException{
-        File uploadFile = convert(multipartFile).orElseThrow(() -> new IllegalArgumentException("파일 전환 실패"));
-
+        File uploadFile = convert(multipartFile);
         return upload(uploadFile, dirName);
     }
     // S3로 파일 업로드하기
@@ -53,17 +53,12 @@ public class S3Service {
         log.info("File delete fail");
     }
 
-    private Optional<File> convert(MultipartFile multipartFile) throws IOException{
-        File convertFile = new File(System.getProperty("user.dir") + "/" + multipartFile.getOriginalFilename());
-        // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
-        if (convertFile.createNewFile()) {
-            try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함
-                fos.write(multipartFile.getBytes());
-            }
-            return Optional.of(convertFile);
-        }
-
-        return Optional.empty();
-
+    private File convert(MultipartFile file) throws IOException{
+        File convFile = new File(file.getOriginalFilename());
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
     }
 }
