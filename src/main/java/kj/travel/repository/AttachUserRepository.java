@@ -19,16 +19,17 @@ public class AttachUserRepository {
         return attachUser.getId();
     }
 
-    private void deleteByUUID(Long UUID){
+    public void deleteByUUID(Long UUID){
         em.createQuery("delete from AttachUser a where a.user.uid =:UUID")
                 .setParameter("UUID",UUID);
     }
 
-    private List<AttachPost> findByUUID(Long uuid){
-        List<AttachPost> attachList = em.createQuery("select a from AttachUser a where a.user.uid =:uuid", AttachPost.class)
-                .setParameter("uuid", uuid)
-                .getResultList();
-        return attachList;
+    public AttachUser findOneByUid(Long uid){
+        AttachUser result = em.createQuery("select a from AttachUser a where a.user.uid =: uid", AttachUser.class)
+                .setParameter("uid", uid)
+                .getSingleResult();
+
+        return result;
     }
 
 }

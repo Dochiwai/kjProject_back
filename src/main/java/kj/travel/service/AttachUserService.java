@@ -27,7 +27,14 @@ public class AttachUserService {
         LocalDateTime now = LocalDateTime.now();
         String url = s3Service.upload(file,"user/" + now);
         AttachUser attachUser = AttachUser.createAttachUser(user,file.getOriginalFilename(),url,now);
-        attachRepository.save(attachUser);
+        if(null == user.getAttach() || "".equals(user.getAttach().getUrl())){
+            attachRepository.save(attachUser);
+        }else{
+            attachUser = attachRepository.findOneByUid(user.getUid());
+            attachUser.setUrl(url);
+            attachUser.setUpdatedAt(now);
+        }
+
     }
 
 }

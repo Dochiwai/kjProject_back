@@ -37,7 +37,6 @@ public class UserController {
     @PostMapping("/user/profileUpload")
     public String profileUpload(@RequestParam("uid")Long uid, @RequestParam("file")MultipartFile file) throws IOException {
         User user = userService.findOne(uid);
-
         attachUserService.save(user,file);
         return "good";
     }
