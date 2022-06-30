@@ -24,13 +24,14 @@ public class UserController {
     private final AttachUserService attachUserService;
 
     @PostMapping("/user/save")
-    public Long userSave(@RequestParam("id")String id ,@RequestParam("pw")String pw ){
+    public String userSave(@RequestParam("id")String id ,@RequestParam("pw")String pw ,@RequestParam("nickname")String nickname){
         User user = new User();
         user.setId(id);
         user.setPw(pw);
+        user.setNickname(nickname);
         user.setStatus(1);
 
-        Long result = userService.join(user);
+        String result = userService.join(user);
         return result;
     }
 

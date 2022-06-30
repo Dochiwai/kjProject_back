@@ -18,9 +18,20 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = false)
-    public Long join(User user){
+    public String join(User user){
+
+        String result = "회원가입을 되었습니다.";
+
+        if(findByNickname(user.getNickname()) == 0L){
+            return "이미 사용중인 닉네임입니다.";
+        }
+        if(findByUserId(user.getId()) == 0L){
+            return "이미 사용중인 아이디입니다";
+        }
+
         userRepository.save(user);
-        return user.getUid();
+
+        return "회원가입을 되었습니다.";
     }
 
     public User findOne(Long userUid){
@@ -31,21 +42,21 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public String findByNickname(String nickname){
-        User findUser = userRepository.findByNickname(nickname);
-        if(null != findUser){
-            return "이미 존재하는 닉네임입니다.";
+    public Long findByNickname(String nickname){
+        List<User> findUser = userRepository.findByNickname(nickname);
+        if(findUser.size() > 0){
+            return 0L;
         }else{
-            return "사용 가능한 닉네임입니다.";
+            return 1L;
         }
     }   
     
-    public String findByUserId(String id){
-        User findUser = userRepository.findByUserId(id);
-        if(null != findUser){
-            return "이미 존재하는 아이디입니다.";
+    public Long findByUserId(String id){
+        List<User> findUser = userRepository.findByUserId(id);
+        if(findUser.size() > 0){
+            return 0L;
         }else{
-            return "사용 가능한 아이디입니다.";
+            return 1L;
         }
     }
 

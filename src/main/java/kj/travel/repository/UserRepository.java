@@ -34,17 +34,17 @@ public class UserRepository {
         return userList;
     }
 
-    public User findByNickname(String nickname) {
-        User findUser = em.createQuery("select u from User u where u.nickname =:nickname", User.class)
+    public List<User> findByNickname(String nickname) {
+        List<User> findUser = em.createQuery("select u from User u where u.nickname =:nickname", User.class)
                 .setParameter("nickname", nickname)
-                .getSingleResult();
+                .getResultList();
         return findUser;
     }
 
-    public User findByUserId(String uid) {
-        User findUser = em.createQuery("select u from User u where u.uid =:uid", User.class)
-                .setParameter("uid", uid)
-                .getSingleResult();
+    public List<User> findByUserId(String id) {
+        List<User> findUser = em.createQuery("select u from User u where u.id =:id", User.class)
+                .setParameter("id", id)
+                .getResultList();
         return findUser;
     }
 }
