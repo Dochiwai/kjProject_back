@@ -1,5 +1,7 @@
 package kj.travel.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -14,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name="tb_user")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 public class User {
 
     @Id @GeneratedValue

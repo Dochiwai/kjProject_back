@@ -1,6 +1,8 @@
 package kj.travel.service;
 
+import kj.travel.domain.AttachUser;
 import kj.travel.domain.User;
+import kj.travel.repository.AttachUserRepository;
 import kj.travel.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,11 +31,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    @Transactional(readOnly = false)
-    public void update(User user) {
-         User findUser = userRepository.findOne(user.getUid());
-    }
-
     public String findByNickname(String nickname){
         User findUser = userRepository.findByNickname(nickname);
         if(null != findUser){
@@ -51,6 +48,5 @@ public class UserService {
             return "사용 가능한 아이디입니다.";
         }
     }
-    
 
 }

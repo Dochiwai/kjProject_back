@@ -1,6 +1,7 @@
 package kj.travel.repository;
 
 import kj.travel.domain.AttachPost;
+import kj.travel.domain.AttachUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +12,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AttachUserRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
 
-    private void save(AttachPost attach){
-        em.persist(attach);
+    public Long save(AttachUser attachUser){
+        em.persist(attachUser);
+        return attachUser.getId();
     }
 
     private void deleteByUUID(Long UUID){

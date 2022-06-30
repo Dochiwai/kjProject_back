@@ -1,6 +1,8 @@
 package kj.travel.controller;
 
+import kj.travel.domain.AttachUser;
 import kj.travel.domain.User;
+import kj.travel.service.AttachUserService;
 import kj.travel.service.S3Service;
 import kj.travel.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -18,7 +21,7 @@ public class UserController {
 
     private final UserService userService;
 
-    private final S3Service s3Service;
+    private final AttachUserService attachUserService;
 
     @PostMapping("/user/save")
     public Long userSave(@RequestParam("id")String id ,@RequestParam("pw")String pw ){
@@ -31,7 +34,15 @@ public class UserController {
         return result;
     }
 
-    @PostMapping("/user/search")
+    @PostMapping("/user/profileUpload")
+    public String profileUpload(@RequestParam("uid")Long uid, @RequestParam("file")MultipartFile file) throws IOException {
+        User user = userService.findOne(uid);
+
+        attachUserService.save(user,file);
+        return "good";
+    }
+
+    @PostMapping("/user/myInfo")
     public User user(@RequestParam("uid")Long id){
         return userService.findOne(id);
     }

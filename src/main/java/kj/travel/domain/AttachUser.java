@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class AttachUser {
 
     @Id @GeneratedValue
-    @Column(name="ATTACH_Id")
+    @Column(name="ATTACH_ID")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -25,8 +25,13 @@ public class AttachUser {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public void setMember(User user){
-        this.user = user;
-    }
+    public static AttachUser createAttachUser(User user , String realname,String url ,LocalDateTime createdAt){
+        AttachUser attachUser = new AttachUser();
+        attachUser.setUser(user);
+        attachUser.setRealname(realname);
+        attachUser.setUrl(url);
+        attachUser.setCreatedAt(createdAt);
 
+        return attachUser;
+    }
 }
