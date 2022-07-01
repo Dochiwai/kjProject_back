@@ -1,9 +1,7 @@
 package kj.travel.controller;
 
-import kj.travel.domain.AttachUser;
 import kj.travel.domain.User;
 import kj.travel.service.AttachUserService;
-import kj.travel.service.S3Service;
 import kj.travel.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -45,6 +42,11 @@ public class UserController {
     @PostMapping("/user/myInfo")
     public User user(@RequestParam("uid")Long id){
         return userService.findOne(id);
+    }
+
+    @PostMapping("/user/findAll")
+    public List<User> findAll(){
+        return userService.findAll();
     }
 
 }

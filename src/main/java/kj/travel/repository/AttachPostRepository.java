@@ -13,18 +13,13 @@ public class AttachPostRepository {
 
     private EntityManager em;
 
-    private void save(AttachPost attach){
+    public void save(AttachPost attach){
         em.persist(attach);
     }
 
-    private void deleteByUUID(Long UUID){
-        em.createQuery("delete from AttachPost a where a.attachUuid =:UUID")
-                .setParameter("UUID",UUID);
-    }
-
-    private List<AttachPost> findByUUID(Long uuid){
-        List<AttachPost> attachList = em.createQuery("select a from AttachPost a where a.attachUuid =:uuid", AttachPost.class)
-                .setParameter("uuid", uuid)
+    public List<AttachPost> findByUUID(Long uid){
+        List<AttachPost> attachList = em.createQuery("select a from AttachPost a where a.board =:uid", AttachPost.class)
+                .setParameter("uid", uid)
                 .getResultList();
         return attachList;
     }

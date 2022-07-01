@@ -1,5 +1,6 @@
 package kj.travel.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +19,21 @@ public class AttachPost {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOARD_ID")
-    private Board attachUuid;
+    private Board board;
 
     private String url;
     private String realname;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public static AttachPost createAttachPost(Board board , String realname,String url ,LocalDateTime createdAt){
+        AttachPost attachPost = new AttachPost();
+        attachPost.setBoard(board);
+        attachPost.setRealname(realname);
+        attachPost.setUrl(url);
+        attachPost.setCreatedAt(createdAt);
+
+        return attachPost;
+    }
 
 }

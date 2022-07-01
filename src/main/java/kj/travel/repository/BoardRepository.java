@@ -13,18 +13,19 @@ public class BoardRepository {
 
     private final EntityManager em;
 
-    public void save(Board board){
+    public Long save(Board board){
         em.persist(board);
+        return board.getId();
     }
 
     public Board findOne(Long id){
-        Board board = em.createQuery("select b from Board b left outer join fetch b.attach",Board.class)
+        Board board = em.createQuery("select b from Board b left join fetch b.attach",Board.class)
                 .getSingleResult();
         return board;
     }
 
     public List<Board> findAll(){
-        List<Board> findBoardList = em.createQuery("select b from Board b", Board.class)
+        List<Board> findBoardList = em.createQuery("select b from Board b left join fetch b.attach", Board.class)
                 .getResultList();
         return findBoardList;
     }
