@@ -1,10 +1,8 @@
 package kj.travel.service;
 
-import kj.travel.domain.AttachUser;
 import kj.travel.domain.User;
 import kj.travel.dto.UserDto;
 import kj.travel.exception.UserException;
-import kj.travel.repository.AttachUserRepository;
 import kj.travel.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,8 @@
 package kj.travel.repository;
 
-import kj.travel.domain.AttachUser;
 import kj.travel.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -29,7 +27,7 @@ public class UserRepository {
     }
 
     public List<User> findAll(){
-        List<User> userList = em.createQuery("select u from User u", User.class)
+        List<User> userList = em.createQuery("select u from User u left join fetch u.attach", User.class)
                 .getResultList();
         return userList;
     }

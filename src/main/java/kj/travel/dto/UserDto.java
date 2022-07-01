@@ -17,7 +17,7 @@ public class UserDto {
     private String email;
     private String phone;
     private String nation;
-    private AttachUser url;
+    private String url;
     private int status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -31,7 +31,9 @@ public class UserDto {
         this.email = user.getEmail();
         this.phone = user.getPhone();
         this.nation = user.getNation();
-        this.url = user.getAttach();
+        if(null != user.getAttach()){
+            this.url = user.getAttach().getUrl();
+        }
         this.status = user.getStatus();
         this.createdAt = user.getCreatedAt();
         this.updatedAt = user.getUpdatedAt();

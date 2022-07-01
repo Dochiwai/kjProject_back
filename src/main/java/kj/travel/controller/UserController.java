@@ -88,7 +88,9 @@ public class UserController {
         List<User> findUsers = userService.findAll();
         List<UserDto> dtos = new ArrayList<>();
         for(int i = 0; i < findUsers.size(); i++){
-            dtos.get(i).UserEntityToDto(findUsers.get(i));
+            UserDto dto = new UserDto();
+            dto.UserEntityToDto(findUsers.get(i));
+            dtos.add(dto);
         }
         return dtos;
     }

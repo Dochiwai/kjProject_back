@@ -32,7 +32,7 @@ public class Board {
     private String title;
     private String content;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "attachUuid")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "id")
     private List<AttachPost> attach = new ArrayList<>();
 
     private int isDisplay; // 0 삭제 , 1 공개중
