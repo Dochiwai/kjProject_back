@@ -2,12 +2,15 @@ package kj.travel.service;
 
 import kj.travel.domain.AttachUser;
 import kj.travel.domain.User;
+import kj.travel.dto.UserDto;
+import kj.travel.exception.UserException;
 import kj.travel.repository.AttachUserRepository;
 import kj.travel.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,20 +21,18 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = false)
-    public String join(User user){
+    public void join(User user){
 
         String result = "회원가입을 되었습니다.";
 
         if(findByNickname(user.getNickname()) == 0L){
-            return "이미 사용중인 닉네임입니다.";
+            throw new UserException("이미 사용중인 닉네임입니다");
         }
         if(findByUserId(user.getId()) == 0L){
-            return "이미 사용중인 아이디입니다";
+            throw new UserException("이미 사용중인 아이디입니다");
         }
 
         userRepository.save(user);
-
-        return "회원가입을 되었습니다.";
     }
 
     public User findOne(Long userUid){
@@ -62,5 +63,24 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Transactional(readOnly = false)
+    public void userUpdate(UserDto dto) {
+
+        if(findByNickname(dto.getNickname()) == 0L){
+            throw new UserException("이미 사용중인 닉네임입니다");
+        }
+        if(findByUserId(dto.getId()) == 0L){
+            throw new UserException("이미 사용중인 아이디입니다");
+        }
+
+        User findUser = userRepository.findOne(dto.getUid());
+        findUser.setNickname(dto.getNickname());
+        findUser.setPw(dto.getPw());
+        findUser.setEmail(dto.getEmail());
+        findUser.setName(dto.getNation());
+        findUser.setPhone(dto.getPhone());
+        findUser.setUpdatedAt(LocalDateTime.now());
     }
 }
