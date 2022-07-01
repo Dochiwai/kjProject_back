@@ -9,26 +9,26 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@Builder
 public class PostDto {
 
     private Long id;
     private String title;
     private String content;
-    private List<AttachPost> attach;
+    private List<String> url;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public void createPostDto(Board board){
-        PostDto dto = PostDto
-                .builder()
-                .id(board.getId())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .attach(board.getAttach())
-                .createdAt(board.getCreatedAt())
-                .updatedAt(board.getUpdatedAt())
-                .build();
+    public PostDto createPostDto(Board board){
+        this.id = board.getId();
+        this.title = board.getTitle();
+        this.content = board.getContent();
+        if(board.getAttach() != null){
+            for(int i = 0; i < board.getAttach().size(); i++){
+                this.url.add(board.getAttach().get(i).getUrl());
+            }
+        }
+        this.createdAt = board.getCreatedAt();
+        this.updatedAt = board.getUpdatedAt();
+        return this;
     }
-
 }

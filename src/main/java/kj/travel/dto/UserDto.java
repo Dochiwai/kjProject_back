@@ -23,7 +23,6 @@ public class UserDto {
     private LocalDateTime updatedAt;
 
     public UserDto UserEntityToDto(User user){
-        UserDto dto = new UserDto();
         this.id = user.getId();
         this.pw = user.getPw();
         this.name = user.getName();
@@ -38,7 +37,7 @@ public class UserDto {
         this.createdAt = user.getCreatedAt();
         this.updatedAt = user.getUpdatedAt();
 
-        return dto;
+        return this;
     }
 
 }
