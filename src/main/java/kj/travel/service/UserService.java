@@ -26,8 +26,8 @@ public class UserService {
         if(findByNickname(user.getNickname()) == 0L){
             throw new UserException("이미 사용중인 닉네임입니다");
         }
-        if(findByUserId(user.getId()) == 0L){
-            throw new UserException("이미 사용중인 아이디입니다");
+        if(findByUserEmail(user.getEmail()) == 0L){
+            throw new UserException("이미 사용중인 이메일입니다");
         }
 
         userRepository.save(user);
@@ -50,8 +50,8 @@ public class UserService {
         }
     }   
     
-    public Long findByUserId(String id){
-        List<User> findUser = userRepository.findByUserId(id);
+    public Long findByUserEmail(String email){
+        List<User> findUser = userRepository.findByUserEmail(email);
         if(findUser.size() > 0){
             return 0L;
         }else{
@@ -69,16 +69,14 @@ public class UserService {
         if(findByNickname(dto.getNickname()) == 0L){
             throw new UserException("이미 사용중인 닉네임입니다");
         }
-        if(findByUserId(dto.getId()) == 0L){
-            throw new UserException("이미 사용중인 아이디입니다");
+        if(findByUserEmail(dto.getEmail()) == 0L){
+            throw new UserException("이미 사용중인 이메일입니다");
         }
 
         User findUser = userRepository.findOne(dto.getUid());
         findUser.setNickname(dto.getNickname());
         findUser.setPw(dto.getPw());
         findUser.setEmail(dto.getEmail());
-        findUser.setName(dto.getNation());
-        findUser.setPhone(dto.getPhone());
         findUser.setUpdatedAt(LocalDateTime.now());
     }
 }

@@ -26,15 +26,17 @@ public class UserController {
 
     /**
      * 유저 회원 가입
-     * @param id
+     * @param email,pw
      * @return 성공시 good 실패시 Exception
      */
     @PostMapping("/user/save")
-    public String userSave(@RequestParam("id")String id ,@RequestParam("pw")String pw ,@RequestParam("nickname")String nickname){
+    public String userSave(@RequestParam("email")String email ,@RequestParam("pw")String pw ,@RequestParam("nickname")String nickname
+            ,@RequestParam("nation")String nation){
         User user = new User();
-        user.setId(id);
+        user.setEmail(email);
         user.setPw(pw);
         user.setNickname(nickname);
+        user.setNation(nation);
         user.setStatus(1);
         userService.join(user);
         return "good";

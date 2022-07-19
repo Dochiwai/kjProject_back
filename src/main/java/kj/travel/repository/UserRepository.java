@@ -39,9 +39,9 @@ public class UserRepository {
         return findUser;
     }
 
-    public List<User> findByUserId(String id) {
-        List<User> findUser = em.createQuery("select u from User u where u.id =:id", User.class)
-                .setParameter("id", id)
+    public List<User> findByUserEmail(String email) {
+        List<User> findUser = em.createQuery("select u from User u where u.email =:email", User.class)
+                .setParameter("email", email)
                 .getResultList();
         return findUser;
     }

@@ -23,12 +23,9 @@ public class User {
     @Column(name = "user_uuid")
     private Long uid;
 
-    private String id;
+    private String email;
     private String pw;
     private String nickname;
-    private String name;
-    private String email;
-    private String phone;
     private String nation;
 
     @OneToOne(fetch = FetchType.LAZY,mappedBy = "user")

@@ -10,12 +10,9 @@ import java.time.LocalDateTime;
 public class UserDto {
 
     private Long uid;
-    private String id;
     private String pw;
-    private String name;
     private String nickname;
     private String email;
-    private String phone;
     private String nation;
     private String url;
     private int status;
@@ -23,12 +20,9 @@ public class UserDto {
     private LocalDateTime updatedAt;
 
     public UserDto UserEntityToDto(User user){
-        this.id = user.getId();
         this.pw = user.getPw();
-        this.name = user.getName();
         this.nickname = user.getNickname();
         this.email = user.getEmail();
-        this.phone = user.getPhone();
         this.nation = user.getNation();
         if(null != user.getAttach()){
             this.url = user.getAttach().getUrl();
